@@ -40,6 +40,7 @@
         isHard: true,
         colorCount: 6,
         colors: [],
+        pickedColor: ''
       }
     },
     methods: {
@@ -80,6 +81,15 @@
           this.colorCount = 6
           }
       },
+
+      createNewColors(numbers){
+        var arr = [];
+        for (var i = 0; i < numbers; i++) {
+          arr.push(this.createRandomStringColor());
+        }
+          return arr;
+      },
+
 
       /*
       restart(){
