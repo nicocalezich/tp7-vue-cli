@@ -2,9 +2,11 @@
 
   <section class="src-components-squares">
 
-  <div v-for="(number,index) in colorCount" :key="index" class="table-darprimaryk" id="container">
-		<div class="square"></div>
-	</div>
+    <div v-for="(number,index) in colorCount" :key="index" class="table-darprimaryk" id="container">
+
+      <div @click="check(index)" :style="{'backgroundColor': colors[index]}" :id="index" class="square"></div>  
+      
+    </div>
 
   </section>
 
@@ -16,28 +18,48 @@
     name: 'src-components-squares',
     props: ['colorCount','colors','pickedColor'],
     mounted () {
-    
+     
     },
     data () {
       return {
-        
+        successMessage: 'You Picked Right!',
+        failMessage: 'Try Again!',
+        resetMessage: 'Play Again!'
       }
     },
     methods: {
       
-      init(){
-        console.log('test')
-        let squares = document.querySelectorAll(".square")
-        for (let i = 0; i < this.colorCount; i++) {  
-          squares[i].style.backgroundColor = this.colors[i]
+    check(index){
+      let square = document.getElementById(index)
+      if (square.style.backgroundColor === this.pickedColor) {           
+          this.$emit('spanMessage', this.successMessage);
+          this.$emit('resetMessage',this.resetMessage)
+          this.$emit('headerBackground',this.pickedColor)
+          this.setAllColorsTo(this.pickedColor)
+        } 
+      else{
+          square.style.backgroundColor = "#232323";
+          this.$emit('spanMessage', this.failMessage);
         }
-      },
-      
-        
-      },
-    computed: {
+    },   
+
+     setAllColorsTo(color) {
+        for (var i = 0; i <this.colorCount; i++) {
+          let square = document.getElementById(i)   
+          square.style.backgroundColor = color
+        }
     }
+
+  },
+
+  
+    computed: {
+    
+      }
+    
+  
 }
+
 
 
 </script>
