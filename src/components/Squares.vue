@@ -2,7 +2,7 @@
 
   <section class="src-components-squares">
 
-  <div v-for="(number,index) in squares" :key="index" class="table-darprimaryk" id="container">
+  <div v-for="(number,index) in colorCount" :key="index" class="table-darprimaryk" id="container">
 		<div class="square"></div>
 	</div>
 
@@ -14,20 +14,28 @@
 
   export default  {
     name: 'src-components-squares',
-    props: ['squares'],
+    props: ['colorCount','colors','pickedColor'],
     mounted () {
-     
+    
     },
     data () {
       return {
-         colors: []
+        
       }
     },
     methods: {
-
-    },
+      
+      init(){
+        console.log('test')
+        let squares = document.querySelectorAll(".square")
+        for (let i = 0; i < this.colorCount; i++) {  
+          squares[i].style.backgroundColor = this.colors[i]
+        }
+      },
+      
+        
+      },
     computed: {
-
     }
 }
 

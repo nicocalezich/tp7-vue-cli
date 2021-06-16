@@ -4,19 +4,19 @@
    
    <div id="header">
 		<h1>The Great <br>
-			<span id="colorDisplay">{{createRandomStringColor()}}</span>
+			<span id="colorDisplay">{{pickedColor}}</span>
 			<br>
 			Guessing Game</h1>
 	</div>
 
 	<div id="navigator">
-		<button id="reset">New colors</button>
+		<button @click="restart()" id="reset">New colors</button>
 		<span id="message"> </span>
 		<button @click="easyClick()" id="easy">easy</button>
 		<button @click="hardClick()" id="hard" class="selected">hard</button>
 	</div>
 
-  <Squares :squares="colorCount"/>
+  <Squares :colorCount="colorCount" :colors="colors" :pickedColor="pickedColor"/>
 
   </section>
 
@@ -33,7 +33,7 @@
        Squares 
     },
     mounted () {
-       
+       this.restart()
     },
     data () {
       return {
@@ -70,6 +70,7 @@
         document.querySelector("#easy").classList.add("selected")
         document.querySelector("#hard").classList.remove("selected")
         this.colorCount = 3
+        this.restart()
         }
       },
 
@@ -79,6 +80,7 @@
           document.querySelector("#hard").classList.add("selected")
           document.querySelector("#easy").classList.remove("selected")
           this.colorCount = 6
+          this.restart()
           }
       },
 
@@ -90,21 +92,40 @@
           return arr;
       },
 
+      /*    
+      init(){
+        for (var i = 0; i <squares.length; i++) {
+          console.log(colors[i])
+          squares[i].style.backgroundColor = colors[i];
+          squares[i].addEventListener("click", function(){
+            var clickedColor = this.style.backgroundColor;
+            if (clickedColor === pickedColor) {
+              messageDisplay.textContent = "You Picked Right!";
+              setAllColorsTo(pickedColor);
+              restartButton.textContent = "Play Again!";
+              header.style.backgroundColor = pickedColor;
+            } 
+            else {
+              this.style.backgroundColor = "#232323";
+              messageDisplay.textContent = "Try Again!";
+              messageDisplay.style.color = "#000000";
+            }
+          });
+        }
 
-      /*
+       restart();
+      }
+      */
+
       restart(){
-        this.colors = this.createNewColors(this.colorCount);
-        this.pickedColor = this.colors[this.PickColor()];
-        colorDisplay.textContent = pickedColor;
-        this.textContent = "Pick New Colors!";
-        header.style.backgroundColor = "steelblue";
-        messageDisplay.textContent = "";
-        restartButton.textContent = "New Colors!";
+        this.colors = this.createNewColors(this.colorCount)
+        this.pickedColor = this.colors[this.PickColor()]
+      /*
         for (var i = 0; i <squares.length; i++) {
           squares[i].style.backgroundColor = colors[i];
         }
-      }
-      */      
+      */
+        }    
     },
   computed: {
 
