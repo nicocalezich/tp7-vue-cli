@@ -7,7 +7,10 @@ export default new Vuex.Store({
     state: {    
         colorCount: 0,
         colors: [],
-        pickedColor: ''
+        pickedColor: '',
+        spanMessage: '',
+        resetMessage: '',
+        headerBackground: ''
     },
     actions: {
       

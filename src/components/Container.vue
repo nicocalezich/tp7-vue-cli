@@ -2,7 +2,7 @@
 
   <section class="src-components-container">
    
-   <div :style="{'backgroundColor': this.headerBackground}" id="header">
+   <div :style="{'backgroundColor': $store.state.headerBackground}" id="header">
 		<h1>The Great <br>
 			<span id="colorDisplay">{{pickedColor}}</span>
 			<br>
@@ -11,19 +11,13 @@
 	</div>
 
 	<div id="navigator">
-		<button @click="reset()" id="reset">{{resetMessage}}</button>
-		<span id="message">{{spanMessage}}</span>
+		<button @click="reset()" id="reset">{{this.$store.state.resetMessage}}</button>
+		<span id="message">{{this.$store.state.spanMessage}}</span>
 		<button @click="easyClick()" id="easy">easy</button>
 		<button @click="hardClick()" id="hard" class="selected">hard</button>
 	</div>
 
-  <Squares
-   :colors="colors"
-   :pickedColor="pickedColor"
-   @spanMessage="spanMessage=$event" 
-   @resetMessage="resetMessage=$event" 
-   @headerBackground="headerBackground=$event" 
-   />
+  <Squares/>
 
   </section>
 
@@ -46,9 +40,6 @@
         colorCount: 6,
         colors: [],
         pickedColor: '',
-        resetMessage: '',
-        spanMessage: '',
-        headerBackground: ''
       }
     },
     methods: {
@@ -98,10 +89,12 @@
         const color = 'steelblue'
         this.colors = this.createNewColors(this.colorCount)
         this.pickedColor = this.colors[this.PickColor()]
-        this.headerBackground = color
-        this.resetMessage = message
-        this.spanMessage = ''
+        this.$store.state.headerBackground = color
+        this.$store.state.resetMessage = message
+        this.$store.state.spanMessage = ''
         this.$store.state.colorCount = this.colorCount
+        this.$store.state.colors = this.colors
+        this.$store.state.pickedColor = this.pickedColor
       
         }    
     },

@@ -4,7 +4,7 @@
 
     <div v-for="(number,index) in this.$store.state.colorCount" :key="index" class="table-darprimaryk" id="container">
 
-      <div @click="check(index)" :style="{'backgroundColor': colors[index]}" :id="index" class="square"></div>  
+      <div @click="check(index)" :style="{'backgroundColor': $store.state.colors[index]}" :id="index" class="square"></div>  
       
     </div>
 
@@ -15,7 +15,6 @@
 <script lang="js">
   export default  {
     name: 'src-components-squares',
-    props: ['colorCount','colors','pickedColor'],
     mounted () {
      
     },
@@ -30,15 +29,15 @@
       
     check(index){
       let square = document.getElementById(index)
-      if (square.style.backgroundColor === this.pickedColor) {           
-          this.$emit('spanMessage', this.successMessage);
-          this.$emit('resetMessage',this.resetMessage)
-          this.$emit('headerBackground',this.pickedColor)
-          this.setAllColorsTo(this.pickedColor)
+      if (square.style.backgroundColor ===  this.$store.state.pickedColor) {           
+          this.$store.state.spanMessage = this.successMessage
+          this.$store.state.resetMessage = this.resetMessage
+          this.$store.state.headerBackground = this.$store.state.pickedColor
+          this.setAllColorsTo( this.$store.state.pickedColor)
         } 
       else{
           square.style.backgroundColor = "#232323";
-          this.$emit('spanMessage', this.failMessage);
+          this.$store.state.spanMessage = this.failMessage
         }
     },   
      setAllColorsTo(color) {
@@ -47,6 +46,7 @@
           square.style.backgroundColor = color
         }
     }
+
   },
   
     computed: {
